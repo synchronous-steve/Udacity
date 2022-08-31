@@ -22,7 +22,7 @@ jobs:
       - run:
           command: |
             export me=$MY_NAME
-            echo $me
+            echo "My name is ${me}"
 
 # Orchestrate or schedule a set of jobs
 workflows:
