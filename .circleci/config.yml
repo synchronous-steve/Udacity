@@ -10,9 +10,21 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - print_pipeline_id
+  deliberate_fail:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run: return 1
+  excecute_on_fail:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run: echo "Hello Error!"
+    when: on_fail
   
 workflows:
   run_workflow:
     jobs:
       - reusable_command
+      - deliberate_fail
 
