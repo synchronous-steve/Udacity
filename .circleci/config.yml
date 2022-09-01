@@ -16,9 +16,9 @@ jobs:
     steps:
       - run: return 1
       - run:
-        name: on_failure
-        command: echo "Hello Error!"
-        when: on_fail
+          name: on_failure
+          command: echo "Hello Error!"
+          when: on_fail
   
 workflows:
   run_workflow:
