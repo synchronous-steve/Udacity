@@ -15,8 +15,9 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - run: return 1
-      - name: on_failure
-        run: echo "Hello Error!"
+      - run:
+        name: on_failure
+        command: echo "Hello Error!"
         when: on_fail
   
 workflows:
