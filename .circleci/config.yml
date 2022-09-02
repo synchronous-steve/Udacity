@@ -12,11 +12,10 @@ jobs:
       - print_pipeline_id
   get_ec2_instance_ips:
     docker:
-      - image: cimg/python:3.10.6
+      - image: cimg/aws:2022.06
     steps:
       - run:
           command: |
-            sudo apt install awscli -y
             export AWS_ACCESS_KEY_ID=${aws_secret_id}
             export AWS_SECRET_ACCESS_KEY=${aws_access_key}
             export AWS_DEFAULT_REGION=us-east-1
