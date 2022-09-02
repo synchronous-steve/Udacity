@@ -10,19 +10,34 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - print_pipeline_id
-  deliberate_fail:
+  get_ec2_instance_ips:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: exit 1
-      - run:
-          name: on_failure
-          command: echo "Hello Error!"
-          when: on_fail
+      - command: |
+          touch ~/inventory
+          echo [all] > ~/inventory
+          aws ec2 describe-instances \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --filters "Name=tag:Project,Values=udacity" \
+            --output text >> ~/inventory
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - inventory
+  print_inventory:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: cat ~/inventory
+
   
 workflows:
   run_workflow:
     jobs:
       - reusable_command
-      - deliberate_fail
+      - get_ec2_instance_ips
+      - print_inventory
 
