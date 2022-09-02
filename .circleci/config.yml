@@ -41,4 +41,6 @@ workflows:
       - reusable_command
       - get_ec2_instance_ips
       - print_inventory
+          requires:
+            - get_ec2_instance_ips
 
