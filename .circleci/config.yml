@@ -12,7 +12,7 @@ jobs:
       - print_pipeline_id
   get_ec2_instance_ips:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/python:3.10.6
     steps:
       - run:
           command: |
