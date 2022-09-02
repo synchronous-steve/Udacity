@@ -14,13 +14,14 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - commands: |
-          touch ~/inventory
-          echo [all] > ~/inventory
-          aws ec2 describe-instances \
-            --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters "Name=tag:Project,Values=udacity" \
-            --output text >> ~/inventory
+      - run:
+          command: |
+            touch ~/inventory
+            echo [all] > ~/inventory
+            aws ec2 describe-instances \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --filters "Name=tag:Project,Values=udacity" \
+              --output text >> ~/inventory
       - persist_to_workspace:
           root: ~/
           paths:
